@@ -1,0 +1,31 @@
+# mod の jar は絶対にコミットしない（CLAUDE.md 4章）
+*.jar
+pack/mods/*.jar
+pack/.packwizcache/
+
+# packwiz / MultiMC などが吐く配布物
+*.mrpack
+*.zip
+
+# KubeJS の実行時生成物
+pack/kubejs/exported/
+pack/kubejs/probe/
+pack/logs/
+pack/local/
+
+# ゲーム実行時に生成されるもの
+pack/saves/
+pack/crash-reports/
+pack/screenshots/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# エディタ / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/
