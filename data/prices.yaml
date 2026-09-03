@@ -1,0 +1,67 @@
+# 商品と価格。ソース・オブ・トゥルース（CLAUDE.md 3.4）。
+# scripts/gen_quests.py がこのファイルから FTB Quests の SNBT を生成する。
+#
+# ============================================================
+# 【中身が空である理由】
+# 価格を1つも入れていない。CLAUDE.md 7章の未決定事項
+# 「料理納品の時給想定」が決まっていないため。
+#
+# 時給が決まらないと基準単価が決まらず、基準単価が決まらないと
+# 100件超の商品価格が全部決まらない。ここを勝手に埋めると
+# CLAUDE.md 3.4（数値バランスを勝手に変えない）に反するので、
+# 構造だけを定義して人間の判断を待つ。
+#
+# 決め方の案は docs/economy.md に書いてある。
+# ============================================================
+
+# 基準値。ここが決まってから individual の価格を入れる。
+baseline:
+  # TODO(要判断): 料理納品でプレイヤーが1時間あたり何コイン稼ぐ想定か。
+  # これが経済全体の原点になる。
+  target_income_per_hour: null
+
+  # TODO(要判断): 通貨の単位。Numismatics のどのコインを1単位とするか。
+  # mod ID 未確認のため、アイテムIDは書かない（CLAUDE.md 3.1）。
+  currency_item: null   # TODO(id): Numismatics の jar で確認
+
+# 買取（プレイヤー → ショップ）。
+#
+# 【憲法 2.3 の制約】ここに入れてよいのは農産物と料理だけ。
+# 鉱石・インゴット・モブドロップは絶対に入れない。自動生産できるため
+# 買取を許すと無限金策が成立して経済が壊れる。
+# この制約は scripts/gen_quests.py が機械的に検査する。
+#
+# エントリの形:
+#   - id: "<アイテムID>"       # 必ず実物で確認したIDを書く（CLAUDE.md 3.1）
+#     category: crop | dish | fish | animal_product
+#     count: 8                 # 1回の納品数
+#     price: 80                # 受取コイン数
+#     season: [spring, summer] # 任意。季節限定品なら
+sell: []
+
+# 販売（ショップ → プレイヤー）。
+#
+# 鉱物はここにしか存在しない。「使うために買うもの」であり続けさせる（憲法 2.3）。
+# 最初の鉄をここから供給することが経済の起点になる（憲法 2.2）。
+#
+# エントリの形:
+#   - id: "<アイテムID>"
+#     category: ore | ingot | material | seed | special
+#     count: 8
+#     price: 120
+#     unlock: "<前提クエストのキー>"   # 任意
+buy: []
+
+# カテゴリの定義。gen_quests.py の検査はこれを使う。
+categories:
+  sellable:
+    - crop            # 生の作物
+    - dish            # 調理済み
+    - fish            # 釣果
+    - animal_product  # 卵・牛乳・羊毛など、畜産の一次産物
+  purchasable:
+    - ore
+    - ingot
+    - material
+    - seed
+    - special

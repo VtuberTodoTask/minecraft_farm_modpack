@@ -1,0 +1,146 @@
+# 採用mod一覧と役割。ソース・オブ・トゥルース（CLAUDE.md 3.4 / 6章）。
+#
+# 【未記入の理由】
+# mod_id と version は空のままにしてある。CLAUDE.md 3.1 により、mod ID を
+# 記憶や推測で書いてはいけない。このリポジトリには jar が無く（4章の方針どおり
+# jar はコミットしない）、確認手段が現時点で存在しないため。
+#
+# 埋め方:
+#   1. 各 mod の jar を手元に置く
+#   2. unzip -p <jar> META-INF/mods.toml で modId を読む
+#   3. ここに転記し、pack/mods/<name>.pw.toml を packwiz で追加する
+#
+# role は確定しているので先に埋めてある。これは CLAUDE.md 6章の表と対応する。
+
+minecraft: "1.20.1"
+loader: "forge"
+# TODO(id): Forge のバージョンを確定させる（pack/pack.toml と揃えること）
+loader_version: null
+
+mods:
+  - name: "Serene Seasons"
+    area: "季節"
+    role: "進行のリズム、温室、シーズンセンサー"
+    mod_id: null      # TODO(id): jar の META-INF/mods.toml で確認
+    version: null
+    notes: "憲法 2.4 の前提。冬に農業ができないことが他要素の存在理由になる"
+
+  - name: "Mystical Agriculture"
+    area: "農業"
+    role: "資源の自給、エッセンス装備"
+    mod_id: null      # TODO(id)
+    version: null
+    notes: "Prosperity / Inferium 鉱石は鉱石除去の例外（憲法 2.2）。作物にも季節制限をかける（憲法 2.4）"
+
+  - name: "Croptopia"
+    area: "作物"
+    role: "作物の種類"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "Farmer's Delight"
+    area: "料理"
+    role: "加工と付加価値"
+    mod_id: null      # TODO(id)
+    version: null
+    notes: "アドオン群は採用が決まった時点で個別の行として足す"
+
+  - name: "Create"
+    area: "工業"
+    role: "省力化、連続組み立て"
+    mod_id: null      # TODO(id)
+    version: null
+    notes: "エンドポータルフレームの製作に連続組み立てを使う（憲法 2.5）。鉱石倍化は入れない（憲法 2.1）"
+
+  - name: "Create: Crafts & Additions"
+    area: "工業"
+    role: "回転力→RF変換"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "Ars Nouveau"
+    area: "魔法"
+    role: "Enchanting Apparatus、使い魔、Agronomic Sourcelink"
+    mod_id: null      # TODO(id)
+    version: null
+    notes: "エンダーアイ12種の生成に使う（憲法 2.5）"
+
+  - name: "Caged Mobs"
+    area: "畜産"
+    role: "モブドロップの牧場化"
+    mod_id: null      # TODO(id)
+    version: null
+    notes: "採用可否は未決定。CLAUDE.md 7章「Caged Mobs と Drygmy を両方入れるか」"
+
+  - name: "Numismatics"
+    area: "通貨"
+    role: "コインアイテム"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "FTB Quests"
+    area: "進行"
+    role: "チュートリアル、進捗管理、販売"
+    mod_id: null      # TODO(id)
+    version: null
+    notes: "リピートクエストの不具合の再現確認が先（CLAUDE.md 5.4 / 7章）"
+
+  - name: "Bountiful"
+    area: "依頼"
+    role: "日替わり依頼の掲示板"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "End Remastered"
+    area: "エンド"
+    role: "12種のエンダーアイ"
+    mod_id: null      # TODO(id)
+    version: null
+    notes: "End Castle の生成を mod config で切る必要がある（CLAUDE.md 5.2）"
+
+  - name: "Aquaculture 2"
+    area: "釣り"
+    role: "独立した収入源"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "Handcrafted"
+    area: "内装"
+    role: "拠点の成長実感"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "Supplementaries"
+    area: "内装"
+    role: "拠点の成長実感"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "KubeJS"
+    area: "開発"
+    role: "レシピ改変"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "ProbeJS"
+    area: "開発"
+    role: "型定義出力によるID確認"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "JEI"
+    area: "開発"
+    role: "レシピ確認"
+    mod_id: null      # TODO(id)
+    version: null
+
+  - name: "Jade"
+    area: "開発"
+    role: "ブロック情報表示"
+    mod_id: null      # TODO(id)
+    version: null
+
+# 検討中で未採用のもの。入れると決まったら mods: に移す。
+candidates:
+  - name: "Ars Nouveau の Drygmy"
+    reason: "Caged Mobs と役割が重なる。CLAUDE.md 7章の未決定事項"
