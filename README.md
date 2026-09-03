@@ -49,6 +49,15 @@ python3 scripts/gen_recipes.py        # 目のレシピ（data/eyes.yaml が空�
 python3 scripts/gen_quests.py         # 価格表の検査（SNBT 生成は未実装）
 ```
 
+実機テスト用:
+
+```sh
+python3 scripts/build_test_datapack.py <出力先>   # バニラで読める datapack に詰め直す
+python3 scripts/scan_world_ores.py <world/region> # 生成済みワールドの鉱石を数える
+```
+
+手順は [`docs/testing.md`](docs/testing.md)。鉱石除去は mod 無しで検証できる。
+
 検証（`pack/` が `data/` と一致しているか）:
 
 ```sh
@@ -69,6 +78,8 @@ python3 scripts/gen_quests.py --lint
 （CLAUDE.md 3.3）。
 
 鉱石除去は**既存チャンクには効かない**。テストは必ず新規ワールドで行う。
+
+実機で確認する手順は [`docs/testing.md`](docs/testing.md) にある。
 
 ## mod の jar について
 
