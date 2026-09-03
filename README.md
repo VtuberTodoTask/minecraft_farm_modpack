@@ -58,6 +58,16 @@ python3 scripts/scan_world_ores.py <world/region> # 生成済みワールドの�
 
 手順は [`docs/testing.md`](docs/testing.md)。鉱石除去は mod 無しで検証できる。
 
+mod を入れるとき:
+
+```sh
+python3 scripts/sync_mod_ids.py <jarのあるディレクトリ>          # 確認だけ
+python3 scripts/sync_mod_ids.py <jarのあるディレクトリ> --write  # data/mods.yaml を更新
+```
+
+jar の `META-INF/mods.toml` から mod ID を機械的に写す。手順は
+[`docs/adding_mods.md`](docs/adding_mods.md)。
+
 検証（`pack/` が `data/` と一致しているか）:
 
 ```sh
