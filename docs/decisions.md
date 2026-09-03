@@ -102,6 +102,65 @@ CLAUDE.md 7章の「鉱石以外の鉄入手経路をどこまで塞ぐか」に
 
 ---
 
+## 2026-09-03 — Forge を 47.4.10 に固定
+
+**決定**: `data/mods.yaml` の `loader_version` と `pack/pack.toml` の
+`[versions] forge` を `47.4.10` にする。
+
+**理由**: 人間の判断。1.20.1 系の Forge。
+
+**書式の確認**: packwiz の `pack.toml` では `[versions]` の `forge` に
+**MC バージョンの接頭辞を付けない**生の値を書く。packwiz のソース
+（`cmd/init.go`）に「Forge uses a format where they prefix their version with
+their supported minecraft version」というコメントがあり、`GetRawForgeVersion()`
+で接頭辞を剥がしてから保存している。したがって `1.20.1-47.4.10` ではなく
+`47.4.10` が正しい。推測ではなく実装を確認した（CLAUDE.md 3.1）。
+
+**注意**: `data/mods.yaml` と `pack/pack.toml` の2箇所に同じ値がある。
+食い違うと事故るので、変えるときは必ず両方直すこと。
+
+---
+
+## 2026-09-03 — 畜産は Drygmy に一本化し、Caged Mobs は採用しない
+
+**決定**: モブドロップの牧場化は Ars Nouveau の Drygmy で行う。
+Caged Mobs は入れない。`data/mods.yaml` から Caged Mobs の行を削除し、
+CLAUDE.md 6章の畜産の行も Ars Nouveau（Drygmy）に変えた。
+
+**理由**:
+
+Drygmy は Source を要求し、Source は Agronomic Sourcelink で畑から供給される
+（憲法 2.5）。つまり**モブドロップの生産量が畑の規模に縛られる**。
+憲法 2.1 の「規模を拡大するほど農業の規模も要求される」がそのまま効く。
+
+Caged Mobs は単体で完結し、一度設置すれば畑と無関係に産出し続ける。
+憲法 2.1 が警戒している「それ自体が目的地になる自動化」に近い。
+
+副次的に、Ars Nouveau は既に採用済みなので mod が1つ減る。
+
+**引き換えに失うもの**: Ars Nouveau に入るまで、序盤ではモブドロップの
+牧場化ができない。畜産を early game に置きたくなった場合は、
+この判断を見直す必要がある。進行設計（`docs/progression.md` 第2段階）で
+冬の代替収入を組むときに、ここが効いてくる可能性がある。
+
+---
+
+## 2026-09-03 — Farmer's Delight は初期は本体のみ
+
+**決定**: アドオンは入れず、Farmer's Delight 本体だけで始める。
+追加は後から個別に検討する。
+
+**理由**: 人間の判断。アドオンは料理の種類 = 買取品目の数に直結するため、
+先に増やすと `data/prices.yaml` の設計対象が膨らむ。
+本体だけで価格の基準を作ってから広げるほうが、時給想定（未決定事項）を
+決めやすい。
+
+**追加するとき**: `data/mods.yaml` の `candidates:` を経由してから
+`mods:` に移す。追加した料理を買取に載せる際は、憲法 2.3 の制約
+（農産物と料理だけ）を満たすことを `scripts/gen_quests.py` が検査する。
+
+---
+
 ## 未記入（人間の判断待ち）
 
 CLAUDE.md 7章の未決定事項が片付いたら、決定内容と理由をここに追記する。
@@ -110,3 +169,5 @@ CLAUDE.md 7章の未決定事項が片付いたら、決定内容と理由をこ
 - 料理納品の時給想定（価格表全体の基準になる）
 - FTB Quests のリピートクエスト不具合の再現結果と、販売実装の方式
 - 12種の目に割り当てる料理チェーン
+- End Remastered の目を自然入手できるルートを残すか、儀式のみにするか
+- 鉱石以外の鉄入手経路をどこまで塞ぐか
