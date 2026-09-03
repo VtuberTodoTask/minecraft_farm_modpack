@@ -212,7 +212,11 @@ Minecraft 1.20.1 Forge 向けmodpackの制作プロジェクト。
 
 注意点:
 
-- **バリアントを網羅すること**。`ore_iron` / `ore_iron_small` / `ore_copper` / `ore_copper_large` / `ore_gold` / `ore_gold_extra` / `ore_diamond` 系4種 / `ore_redstone` / `ore_redstone_lower` / `ore_lapis` / `ore_lapis_buried` / `ore_coal_upper` / `ore_coal_lower` / `ore_emerald` / `ore_quartz_nether` / `ore_ancient_debris` 系 など
+- **ここに書くのは configured_feature 名。placed_feature 名ではない。** 両者は名前が似ていて紛らわしい。`ore_copper` / `ore_gold_extra` / `ore_redstone_lower` / `ore_coal_upper` / `ore_coal_lower` / `ore_quartz_nether` はすべて placed_feature 名であり、`configured_feature/` に置いても何も無効化されない
+
+- configured_feature を潰せば、それを参照する placed_feature はすべて止まる。バリアントの網羅は configured 側で行うほうが漏れが出ない（例: `ore_redstone` を潰せば placed の `ore_redstone` と `ore_redstone_lower` が同時に止まる）
+
+- バニラ 1.20.1 の除去対象は19件。全リストと、各 configured がどの placed に使われているかの対応表は `data/ore_removal.yaml` にある。経緯は `docs/decisions.md` を参照
 
 - 対象一覧は `data/ore_removal.yaml` で管理し、スクリプトで生成する
 

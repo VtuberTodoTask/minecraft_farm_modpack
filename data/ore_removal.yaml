@@ -1,0 +1,175 @@
+# 除去対象の worldgen 定義。ソース・オブ・トゥルース（CLAUDE.md 3.4）。
+# scripts/gen_ore_removal.py がこのファイルから pack/kubejs/data/ 以下を生成する。
+# 生成物を直接編集しないこと。
+#
+# 【重要】ここに書くのは configured_feature 名であって placed_feature 名ではない。
+#   configured_feature を minecraft:no_op で上書きすると、それを参照する
+#   すべての placed_feature が何も生成しなくなる。したがって configured 側を
+#   潰すほうが漏れがなく、ファイル数も少なくて済む。
+#   例: ore_redstone（configured）を潰せば placed の ore_redstone と
+#       ore_redstone_lower の両方が同時に無効化される。
+#
+# blocks / placed_by は検証の証跡であり、生成には使わない。
+# 出典: misode/mcmeta の 1.20.1-data ブランチ（バニラ 1.20.1 のデータ本体）を
+#       取得して機械的に抽出したもの。手入力ではない。
+# 検証日: 2026-09-03 / 対象バージョン: Minecraft 1.20.1
+
+version: "1.20.1"
+
+# --- 除去する: 鉱石として採掘価値のあるもの ---
+configured_features:
+  remove:
+    - feature: "ore_coal"
+      reason: "石炭。木炭で代替できるため序盤の詰みは起きない"
+      blocks: ["minecraft:coal_ore", "minecraft:deepslate_coal_ore"]
+      placed_by: ["ore_coal_upper"]
+    - feature: "ore_coal_buried"
+      reason: "石炭（埋没バリアント）"
+      blocks: ["minecraft:coal_ore", "minecraft:deepslate_coal_ore"]
+      placed_by: ["ore_coal_lower"]
+    - feature: "ore_copper_small"
+      reason: "銅。Create の素材はショップ供給に一本化する"
+      blocks: ["minecraft:copper_ore", "minecraft:deepslate_copper_ore"]
+      placed_by: ["ore_copper"]
+    - feature: "ore_copper_large"
+      reason: "銅（大鉱脈バリアント）"
+      blocks: ["minecraft:copper_ore", "minecraft:deepslate_copper_ore"]
+      placed_by: ["ore_copper_large"]
+    - feature: "ore_iron"
+      reason: "鉄。経済の起点であり、必ずショップ経由にする（憲法 2.2）"
+      blocks: ["minecraft:deepslate_iron_ore", "minecraft:iron_ore"]
+      placed_by: ["ore_iron_middle", "ore_iron_upper"]
+    - feature: "ore_iron_small"
+      reason: "鉄（小バリアント）"
+      blocks: ["minecraft:deepslate_iron_ore", "minecraft:iron_ore"]
+      placed_by: ["ore_iron_small"]
+    - feature: "ore_gold"
+      reason: "金"
+      blocks: ["minecraft:deepslate_gold_ore", "minecraft:gold_ore"]
+      placed_by: ["ore_gold_extra"]
+    - feature: "ore_gold_buried"
+      reason: "金（埋没バリアント）"
+      blocks: ["minecraft:deepslate_gold_ore", "minecraft:gold_ore"]
+      placed_by: ["ore_gold", "ore_gold_lower"]
+    - feature: "ore_nether_gold"
+      reason: "ネザー金鉱石。ピグリン交易の是非とは別に、採掘由来の金は塞ぐ"
+      blocks: ["minecraft:nether_gold_ore"]
+      placed_by: ["ore_gold_deltas", "ore_gold_nether"]
+    - feature: "ore_redstone"
+      reason: "レッドストーン"
+      blocks: ["minecraft:deepslate_redstone_ore", "minecraft:redstone_ore"]
+      placed_by: ["ore_redstone", "ore_redstone_lower"]
+    - feature: "ore_lapis"
+      reason: "ラピスラズリ"
+      blocks: ["minecraft:deepslate_lapis_ore", "minecraft:lapis_ore"]
+      placed_by: ["ore_lapis"]
+    - feature: "ore_lapis_buried"
+      reason: "ラピスラズリ（埋没バリアント）"
+      blocks: ["minecraft:deepslate_lapis_ore", "minecraft:lapis_ore"]
+      placed_by: ["ore_lapis_buried"]
+    - feature: "ore_diamond_small"
+      reason: "ダイヤモンド（placed: ore_diamond）"
+      blocks: ["minecraft:deepslate_diamond_ore", "minecraft:diamond_ore"]
+      placed_by: ["ore_diamond"]
+    - feature: "ore_diamond_large"
+      reason: "ダイヤモンド（大バリアント）"
+      blocks: ["minecraft:deepslate_diamond_ore", "minecraft:diamond_ore"]
+      placed_by: ["ore_diamond_large"]
+    - feature: "ore_diamond_buried"
+      reason: "ダイヤモンド（埋没バリアント）"
+      blocks: ["minecraft:deepslate_diamond_ore", "minecraft:diamond_ore"]
+      placed_by: ["ore_diamond_buried"]
+    - feature: "ore_emerald"
+      reason: "エメラルド"
+      blocks: ["minecraft:deepslate_emerald_ore", "minecraft:emerald_ore"]
+      placed_by: ["ore_emerald"]
+    - feature: "ore_quartz"
+      reason: "ネザークォーツ。Create の素材として需要が大きいためショップに寄せる"
+      blocks: ["minecraft:nether_quartz_ore"]
+      placed_by: ["ore_quartz_deltas", "ore_quartz_nether"]
+    - feature: "ore_ancient_debris_small"
+      reason: "古代の残骸（小）"
+      blocks: ["minecraft:ancient_debris"]
+      placed_by: ["ore_debris_small"]
+    - feature: "ore_ancient_debris_large"
+      reason: "古代の残骸（大）"
+      blocks: ["minecraft:ancient_debris"]
+      placed_by: ["ore_ancient_debris_large"]
+
+  # --- 残す: 名前は ore_* だが鉱物ではない地形ブロック ---
+  # 「網羅すること」の裏返しとして、意図的に残したものも記録しておく。
+  # そうしないと後から監査したときに漏れなのか判断なのか分からなくなる。
+  keep:
+    - feature: "ore_andesite"
+      reason: "安山岩。鉱物ではなく地形ブロック。Create の主要素材なので残す"
+      blocks: ["minecraft:andesite"]
+      placed_by: ["ore_andesite_lower", "ore_andesite_upper"]
+    - feature: "ore_diorite"
+      reason: "閃緑岩。地形ブロック"
+      blocks: ["minecraft:diorite"]
+      placed_by: ["ore_diorite_lower", "ore_diorite_upper"]
+    - feature: "ore_granite"
+      reason: "花崗岩。地形ブロック"
+      blocks: ["minecraft:granite"]
+      placed_by: ["ore_granite_lower", "ore_granite_upper"]
+    - feature: "ore_tuff"
+      reason: "凝灰岩。地形ブロック"
+      blocks: ["minecraft:tuff"]
+      placed_by: ["ore_tuff"]
+    - feature: "ore_gravel"
+      reason: "砂利。燧石の入手経路として必須"
+      blocks: ["minecraft:gravel"]
+      placed_by: ["ore_gravel"]
+    - feature: "ore_gravel_nether"
+      reason: "砂利（ネザー）"
+      blocks: ["minecraft:gravel"]
+      placed_by: ["ore_gravel_nether"]
+    - feature: "ore_dirt"
+      reason: "土の塊。地形ブロック"
+      blocks: ["minecraft:dirt"]
+      placed_by: ["ore_dirt"]
+    - feature: "ore_clay"
+      reason: "粘土。建築・内装用"
+      blocks: ["minecraft:clay"]
+      placed_by: ["ore_clay"]
+    - feature: "ore_blackstone"
+      reason: "ブラックストーン。地形ブロック"
+      blocks: ["minecraft:blackstone"]
+      placed_by: ["ore_blackstone"]
+    - feature: "ore_magma"
+      reason: "マグマブロック。地形ブロック"
+      blocks: ["minecraft:magma_block"]
+      placed_by: ["ore_magma"]
+    - feature: "ore_soul_sand"
+      reason: "ソウルサンド。地形ブロック"
+      blocks: ["minecraft:soul_sand"]
+      placed_by: ["ore_soul_sand"]
+    - feature: "ore_infested"
+      reason: "虫食い石。鉱石ではない"
+      blocks: ["minecraft:infested_deepslate", "minecraft:infested_stone"]
+      placed_by: ["ore_infested"]
+
+# --- 構造物 ---
+# CLAUDE.md 5.2。エンド要塞を生成させない。
+# placement の concentric_rings は残す（消すとエンダーアイの探索処理や
+# 一部の mod がクラッシュしうるため）。structures を空配列にするだけにとどめる。
+structure_sets:
+  empty_structures:
+    - set: "strongholds"
+      reason: エンド要塞を生成させない。エンドポータルは Create の連続組み立てで自作する（憲法 2.5）
+      # 検証済み: バニラ 1.20.1 の placement は以下（そのまま維持する）
+      placement:
+        type: minecraft:concentric_rings
+        count: 128
+        distance: 32
+        preferred_biomes: "#minecraft:stronghold_biased_to"
+        salt: 0
+        spread: 3
+
+# --- 未対応 ---
+# mod 追加の鉱石は各 mod の config で切るのが原則（CLAUDE.md 5.1）。
+# jar を確認していないため、ここには一切書かない。
+# TODO(id): Mystical Agriculture の Prosperity / Inferium 鉱石は「残す」側。
+#           憲法 2.2 の例外。mod config 側の設定キー名を jar で確認すること。
+# TODO(id): End Remastered の End Castle 生成を切る config キーを jar で確認すること。
+#           strongholds を空にするだけでは mod 側の生成は止まらない（CLAUDE.md 5.2）。
