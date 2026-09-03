@@ -14,8 +14,8 @@
 
 minecraft: "1.20.1"
 loader: "forge"
-# TODO(id): Forge のバージョンを確定させる（pack/pack.toml と揃えること）
-loader_version: null
+# pack/pack.toml の [versions] forge と同じ値にすること。
+loader_version: "47.4.10"
 
 mods:
   - name: "Serene Seasons"
@@ -43,7 +43,7 @@ mods:
     role: "加工と付加価値"
     mod_id: null      # TODO(id)
     version: null
-    notes: "アドオン群は採用が決まった時点で個別の行として足す"
+    notes: "初期は本体のみ。アドオンは後から個別の行として足す（決定 2026-09-03）"
 
   - name: "Create"
     area: "工業"
@@ -63,14 +63,7 @@ mods:
     role: "Enchanting Apparatus、使い魔、Agronomic Sourcelink"
     mod_id: null      # TODO(id)
     version: null
-    notes: "エンダーアイ12種の生成に使う（憲法 2.5）"
-
-  - name: "Caged Mobs"
-    area: "畜産"
-    role: "モブドロップの牧場化"
-    mod_id: null      # TODO(id)
-    version: null
-    notes: "採用可否は未決定。CLAUDE.md 7章「Caged Mobs と Drygmy を両方入れるか」"
+    notes: "エンダーアイ12種の生成に使う（憲法 2.5）。畜産（Drygmy によるモブドロップ収集）もこの mod が担う"
 
   - name: "Numismatics"
     area: "通貨"
@@ -141,6 +134,5 @@ mods:
     version: null
 
 # 検討中で未採用のもの。入れると決まったら mods: に移す。
-candidates:
-  - name: "Ars Nouveau の Drygmy"
-    reason: "Caged Mobs と役割が重なる。CLAUDE.md 7章の未決定事項"
+# Farmer's Delight のアドオンが決まったらここを経由して追加する。
+candidates: []

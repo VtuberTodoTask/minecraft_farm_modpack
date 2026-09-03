@@ -290,7 +290,7 @@ event.recipes.ars_nouveau.enchanting_apparatus(
 
 | 魔法 | Ars Nouveau | Enchanting Apparatus、使い魔、Agronomic Sourcelink |
 
-| 畜産 | Caged Mobs | モブドロップの牧場化 |
+| 畜産 | Ars Nouveau（Drygmy） | モブドロップの牧場化 |
 
 | 通貨 | Numismatics | コインアイテム |
 
@@ -313,8 +313,6 @@ event.recipes.ars_nouveau.enchanting_apparatus(
 実装前に人間の判断が必要な項目。勝手に決めない。
 
 - [ ] 料理納品の時給想定（これが決まらないと価格表全体が決まらない）
-
-- [ ] Caged Mobs と Ars Nouveau の Drygmy を両方入れるか、片方に絞るか
 
 - [ ] End Remastered の目を自然入手できるルートを残すか、儀式のみにするか
 
